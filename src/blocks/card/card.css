@@ -1,0 +1,11 @@
+.card {
+  position: relative;
+  max-width: 282px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  color: #000;
+}

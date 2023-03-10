@@ -1,0 +1,25 @@
+.popup__save-btn {
+  box-sizing: border-box;
+  height: 50px;
+  padding: 0;
+  border: none;
+  font: inherit;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+
+  line-height: 22px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.popup__save-btn:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__save-btn{
+    line-height: 17px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,16 @@
+.card__delete-btn {
+  width: 19px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: unset;
+  background: url(../../../images/basket.svg) no-repeat;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.card__delete-btn:hover {
+  opacity: 0.5;
+}

@@ -1,0 +1,10 @@
+.profile__info-container-header {
+  display: flex;
+  align-items: baseline;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info-container-header {
+    transform: translate(14px);
+  }
+}
