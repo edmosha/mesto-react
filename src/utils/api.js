@@ -38,7 +38,7 @@ class Api {
       })
   }
 
-  postNewCard({ title, image }) {
+  postNewCard(title, image) {
     return this._request(
       this._baseUrl + '/cards', {
         method: 'POST',
@@ -74,7 +74,11 @@ class Api {
       })
   }
 
-  updateAvatar({ avatar }) {
+  changeLikeCardStatus(cardId, isLiked) {
+    return isLiked ? this.removeLike(cardId) : this.setLike(cardId);
+  }
+
+  updateAvatar(avatar) {
     return this._request(
       this._baseUrl + '/users/me/avatar', {
         method: 'PATCH',

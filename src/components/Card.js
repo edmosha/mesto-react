@@ -1,23 +1,54 @@
-import React from "react";
+import {useContext} from "react";
+import {CurrentUserContext} from "./contexts/CurrentUserContext";
 
 function Card(props) {
+  const { card, onCardClick, onCardLike, onCardDelete } = props;
+  const currentUser = useContext(CurrentUserContext);
+
+  const isOwn = card.owner._id === currentUser._id;
+  const isLiked = card.likes.some((user) => user._id === currentUser._id);
+  let likeButtonClass = `card__like-btn ${isLiked ? 'card__like-btn_focus' : ''}`
 
   const handleClick = () => {
-    props.onCardClick(props.card);
+    onCardClick(card);
+  }
+
+  const handleLikeClick = () => {
+    onCardLike(card);
+  }
+
+  const handleDeleteClick = () => {
+    onCardDelete(card);
   }
 
   return (
-    <li className="card__item" onClick={ handleClick }>
+    <li className="card__item">
       <article className="card">
-        <img className="card__image" src={props.card.src} alt="" />
+
+        <img className="card__image" src={card.link} alt={card.name} onClick={ handleClick } />
         <div className="card__title-hidden-container">
-          <h2 className="card__title">{props.card.title}</h2>
+          <h2 className="card__title">{card.name}</h2>
         </div>
+
         <div className="card__like-container">
-          <button className="card__like-btn" type="button" aria-label="лайк"></button>
-          <p className="card__like-counter">{props.card.likes.length}</p>
+          <button
+            className={likeButtonClass}
+            type="button"
+            aria-label="лайк"
+            onClick={ handleLikeClick }>
+          </button>
+          <p className="card__like-counter">{card.likes.length}</p>
         </div>
-        <button className="card__delete-btn" type="button" aria-label="удалить"></button>
+
+        {isOwn && (
+          <button
+            className="card__delete-btn"
+            type="button"
+            aria-label="удалить"
+            onClick={ handleDeleteClick }>
+          </button>
+        )}
+
       </article>
     </li>
   )
