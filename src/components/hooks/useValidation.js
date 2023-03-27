@@ -1,16 +1,8 @@
 import {useState} from "react";
 
-function useValidation(inputRef = {}) {
-  let initialState;
+function useValidation() {
 
-  if (Object.keys(inputRef).length !== 0) {
-    const { name, value } = inputRef.current;
-    initialState = { [name]: value }
-  } else {
-    initialState = {};
-  }
-
-  const [ values, setValues ] = useState(initialState);
+  const [ values, setValues ] = useState({});
   const [ errors, setErrors ] = useState({});
   const [ isValid, setIsValid ] = useState(false);
 
@@ -22,14 +14,6 @@ function useValidation(inputRef = {}) {
 
     const form = evt.target.closest('form');
     setIsValid(form.checkValidity());
-  }
-
-  const checkValidity = () => {
-    const { name, value, validationMessage: error } = inputRef.current;
-
-    setValues({ ...values, [name]: value })
-    setErrors({ ...errors, [name]: error})
-    setIsValid(() => error === '');
   }
 
   const resetValidation = (values = {}, errors = {}) => {
@@ -44,7 +28,6 @@ function useValidation(inputRef = {}) {
     isValid,
     onChange,
     resetValidation,
-    checkValidity,
   }
 }
 

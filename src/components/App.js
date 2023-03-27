@@ -9,6 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeleteCardPopup from "./ConfirmDeleteCardPopup";
+import ErrorPopup from "./ConfirmErrorPopup";
 
 function App() {
 
@@ -16,6 +17,8 @@ function App() {
   const [ isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [ isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [ isConfirmCardDeletePopupOpen, setIsConfirmCardDeletePopupOpen] = useState(false);
+  const [ isErrorPopupOpen, setIsErrorPopupOpen] = useState(false);
+
   const [ selectedCard, setSelectedCard ] = useState({ id: '', title: '', src: '' });
   const [ isLoading, setIsLoading ] = useState(false);
 
@@ -24,9 +27,13 @@ function App() {
   const [ cardForDelete, setCardForDelete ] = useState({});
 
   useEffect(() => {
-    api.getUserInfo().then(res => setCurrentUser(res));
+    api.getUserInfo()
+      .then(res => setCurrentUser(res))
+      .catch(error => handleError(error));
 
-    api.getInitialCards().then(res => setCards(res));
+    api.getInitialCards()
+      .then(res => setCards(res))
+      .catch(error => handleError(error));
   }, [])
 
   const closeAllPopups = () => {
@@ -34,15 +41,26 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsConfirmCardDeletePopupOpen(false);
+    setIsErrorPopupOpen(false);
+
     setSelectedCard({ id: '', title: '', src: '' })
+  }
+
+  function handleError(error) {
+    closeAllPopups();
+    setIsErrorPopupOpen(true);
+    console.error(error);
   }
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards(state => state.map(c => c._id === card._id ? newCard : c));
-    });
+    api.changeLikeCardStatus(card._id, isLiked)
+
+      .then((newCard) => {
+        setCards(state => state.map(c => c._id === card._id ? newCard : c));
+      })
+      .catch(error => handleError(error));
   }
 
   const handleCardDelete = (card) => {
@@ -53,13 +71,15 @@ function App() {
   const handleConfirmCardDelete = () => {
     setIsLoading(true);
 
-    api.deleteCard(cardForDelete._id).then(() => {
+    api.deleteCard(cardForDelete._id)
 
-      setCards(state => state.filter(c => c._id !== cardForDelete._id));
-      setCardForDelete({});
-      closeAllPopups();
-      setIsLoading(true);
-    })
+      .then(() => {
+        setCards(state => state.filter(c => c._id !== cardForDelete._id));
+        setCardForDelete({});
+        closeAllPopups();
+      })
+      .catch(error => handleError(error))
+      .finally(() => setIsLoading(false));
   }
 
   const handleCardClick = (card) => {
@@ -73,33 +93,40 @@ function App() {
   const handleUpdateUser = ({ name, about }) => {
     setIsLoading(true);
 
-    api.setUserInfo(name, about).then((newUserData) => {
-      setCurrentUser(newUserData);
-      closeAllPopups();
-      setIsLoading(false);
-    })
+    api.setUserInfo(name, about)
+
+      .then(newUserData => {
+        setCurrentUser(newUserData);
+        closeAllPopups();
+      })
+      .catch(error => handleError(error))
+      .finally(() => setIsLoading(false));
   }
 
   const handleUpdateAvatar = ({ avatar }) => {
     setIsLoading(true);
 
-    api.updateAvatar(avatar).then((newUserData) => {
+    api.updateAvatar(avatar)
 
-      setCurrentUser(newUserData);
-      closeAllPopups();
-      setIsLoading(false);
-    })
+      .then(newUserData => {
+        setCurrentUser(newUserData);
+        closeAllPopups();
+      })
+      .catch(error => handleError(error))
+      .finally(() => setIsLoading(false));
   }
 
   const handleAddPlaceSubmit = ({ title, image }) => {
     setIsLoading(true);
 
-    api.postNewCard(title, image).then(newCard => {
+    api.postNewCard(title, image)
 
-      setCards([ newCard, ...cards ])
-      closeAllPopups();
-      setIsLoading(false);
-    })
+      .then(newCard => {
+        setCards([ newCard, ...cards ])
+        closeAllPopups();
+      })
+      .catch(error => handleError(error))
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -143,6 +170,12 @@ function App() {
           isLoading={isLoading}
           onClose={ closeAllPopups }
           onCardDelete={ handleConfirmCardDelete }
+        />
+
+        <ErrorPopup
+          // isOpen={isConfirmCardDeletePopupOpen}
+          isOpen={isErrorPopupOpen}
+          onClose={ closeAllPopups }
         />
 
         <ImagePopup card={selectedCard} onClose={ closeAllPopups } />

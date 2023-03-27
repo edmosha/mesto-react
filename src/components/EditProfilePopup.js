@@ -25,8 +25,6 @@ function EditProfilePopup(props) {
       name: values.name,
       about: values.description,
     });
-
-    resetValidation();
   }
 
   return (

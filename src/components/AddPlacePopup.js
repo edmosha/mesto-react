@@ -1,5 +1,6 @@
 import PopupWithForm from "./PopupWithForm";
 import useValidation from "./hooks/useValidation";
+import {useEffect} from "react";
 
 function AddPlacePopup(props) {
 
@@ -8,6 +9,10 @@ function AddPlacePopup(props) {
 
   const submitButtonClass = `popup__save-btn ${!isValid ? 'popup__save-btn_inactive' : ''}`
 
+  useEffect(() => {
+    resetValidation()
+  }, [isOpen])
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -15,8 +20,6 @@ function AddPlacePopup(props) {
       title: values.title,
       image: values.image
     });
-
-    resetValidation();
   }
 
   return (

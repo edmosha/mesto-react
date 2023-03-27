@@ -1,24 +1,24 @@
 import PopupWithForm from "./PopupWithForm";
-import {useRef} from "react";
+import {useEffect} from "react";
 import useValidation from "./hooks/useValidation";
 
 function EditAvatarPopup(props) {
 
   const { isOpen, isLoading, onClose, onUpdateAvatar } = props;
+  const { values, errors, isValid, onChange, resetValidation } = useValidation();
 
-  const inputRef = useRef(props);
-
-  const { errors, isValid, resetValidation, checkValidity } = useValidation(inputRef);
   const submitButtonClass = `popup__save-btn ${!isValid ? 'popup__save-btn_inactive' : ''}`
+
+  useEffect(() => {
+    resetValidation()
+  }, [isOpen])
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     onUpdateAvatar({
-      avatar: inputRef.current.value
+      avatar: values.avatar
     });
-
-    resetValidation();
   }
 
   return (
@@ -32,8 +32,8 @@ function EditAvatarPopup(props) {
 
       <input
         className="popup__input"
-        onChange={ checkValidity }
-        ref={inputRef}
+        value={values.avatar || ''}
+        onChange={ onChange }
         id="avatar"
         type="url"
         name="avatar"

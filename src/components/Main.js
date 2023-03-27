@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import {useContext} from "react";
 import {CurrentUserContext} from "./contexts/CurrentUserContext";
 import Card from "./Card";
 
@@ -6,20 +6,11 @@ function Main(props) {
   const { cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete } = props;
   const currentUser = useContext(CurrentUserContext)
 
-  const [ avatar, setAvatar ] = useState('');
-
-  useEffect(() => {
-    if (Object.keys(currentUser).length !== 0) {
-      setAvatar(currentUser.avatar);
-    }
-  }, [currentUser]);
-
-
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container" onClick={ onEditAvatar }>
-          <img className="profile__avatar" src={avatar} alt={currentUser.name}/>
+          <img className="profile__avatar" src={currentUser.avatar} alt={currentUser.name}/>
           <div className="profile__avatar-overlay"></div>
         </div>
 
