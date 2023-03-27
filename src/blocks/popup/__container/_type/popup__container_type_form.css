@@ -10,9 +10,8 @@
 }
 
 @media screen and (max-width: 767px) {
-  .popup__container_type_size-l {
+  .popup__container_type_form {
     width: 282px;
-    height: 322px;
     padding: 25px 22px 25px;
   }
 }
