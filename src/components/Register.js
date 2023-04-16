@@ -58,7 +58,7 @@ function Register(props) {
         <button className={submitButtonClass} type="submit" disabled={!isValid}>Зарегистрироваться</button>
 
       </form>
-      <Link to="/sign-in" className="entry__link" replace>Уже зарегистрированны? Войти</Link>
+      <Link to="/mesto-react/sign-in" className="entry__link" replace>Уже зарегистрированны? Войти</Link>
     </div>
   );
 }

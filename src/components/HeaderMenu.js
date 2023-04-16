@@ -14,7 +14,7 @@ const HeaderMenu = (props) => {
   return (
     <div className={`header__menu ${props.isOpen ? 'header__menu_opened' : ''}`}>
       <p className="header__login">{currentUser.email}</p>
-      <Link to="/sign-in"
+      <Link to="/mesto-react/sign-in"
             className="header__link header__link_type_exit"
             onClick={handleExitClick}>
         Выйти

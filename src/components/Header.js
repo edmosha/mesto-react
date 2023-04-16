@@ -15,8 +15,8 @@ function Header(props) {
   }
 
   const handleHeaderLink = () => {
-    return (url === "/sign-in" && <Link to="/sign-up" className="header__link">Регистрация</Link>) ||
-           (url === "/sign-up" && <Link to="/sign-in" className="header__link">Войти</Link>)
+    return (url === "/mesto-react/sign-in" && <Link to="/mesto-react/sign-up" className="header__link">Регистрация</Link>) ||
+           (url === "/mesto-react/sign-up" && <Link to="/mesto-react/sign-in" className="header__link">Войти</Link>)
   }
 
   return (

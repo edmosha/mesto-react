@@ -49,12 +49,12 @@ function App() {
         .then(([user, email]) => {
           setCurrentUser({...currentUser, ...user, email: email.data.email})
           setLoggedIn(true);
-          navigate('/main', {replace: true});
+          navigate('/mesto-react/main', {replace: true});
           setIsPageLoading(false);
         })
         .catch(() => handleError());
     } else {
-      navigate('/sign-in', {replace: true});
+      navigate('/mesto-react/sign-in', {replace: true});
 
       api.getUserInfo()
         .then((res) => {
@@ -179,7 +179,7 @@ function App() {
         getEmail(res.token).then((res) => {
           setCurrentUser({...currentUser, email: res.data.email})
           handleLoggedIn(true);
-          navigate('/main', {replace: true});
+          navigate('/mesto-react/main', {replace: true});
           return res
         })
       })
@@ -195,36 +195,38 @@ function App() {
       <div className="App">
         {!isPageLoading
           ? (<>
-            <Header loggedIn={loggedIn} handleLoggedIn={handleLoggedIn} />
+            <section className="content">
+              <Header loggedIn={loggedIn} handleLoggedIn={handleLoggedIn} />
 
-            <main className="content">
-              <Routes>
+              <main>
+                <Routes>
 
-                <Route path="/" element={
-                  loggedIn
-                    ? <Navigate to="/main" replace />
-                    : <Navigate to="/sign-in" replace />
-                } />
+                  <Route path="/" element={
+                    loggedIn
+                      ? <Navigate to="/mesto-react/main" replace />
+                      : <Navigate to="/mesto-react/sign-in" replace />
+                  } />
 
-                <Route path="/main" element={
-                  <ProtectedRoute
-                    element={Main}
-                    loggedIn={loggedIn}
-                    cards={cards}
-                    onEditProfile={ () => setIsEditProfilePopupOpen(true) }
-                    onAddPlace={ () => setIsAddPlacePopupOpen(true) }
-                    onEditAvatar={ () => setIsEditAvatarPopupOpen(true) }
-                    onCardClick={ handleCardClick }
-                    onCardLike={ handleCardLike }
-                    onCardDelete={ handleCardDelete }
-                  />
-                }/>
+                  <Route path="/mesto-react/main" element={
+                    <ProtectedRoute
+                      element={Main}
+                      loggedIn={loggedIn}
+                      cards={cards}
+                      onEditProfile={ () => setIsEditProfilePopupOpen(true) }
+                      onAddPlace={ () => setIsAddPlacePopupOpen(true) }
+                      onEditAvatar={ () => setIsEditAvatarPopupOpen(true) }
+                      onCardClick={ handleCardClick }
+                      onCardLike={ handleCardLike }
+                      onCardDelete={ handleCardDelete }
+                    />
+                  }/>
 
-                <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
-                <Route path="/sign-up" element={<Register handleOk={handleOk} handleError={handleError} />} />
+                  <Route path="/mesto-react/sign-in" element={<Login handleLogin={handleLogin} />} />
+                  <Route path="/mesto-react/sign-up" element={<Register handleOk={handleOk} handleError={handleError} />} />
 
-              </Routes>
-            </main>
+                </Routes>
+              </main>
+            </section>
 
             <Footer />
 
