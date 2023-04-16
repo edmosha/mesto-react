@@ -7,7 +7,7 @@ function Main(props) {
   const currentUser = useContext(CurrentUserContext)
 
   return (
-    <main className="content">
+    <>
       <section className="profile">
         <div className="profile__avatar-container" onClick={ onEditAvatar }>
           <img className="profile__avatar" src={currentUser.avatar} alt={currentUser.name}/>
@@ -42,8 +42,7 @@ function Main(props) {
           ))}
         </ul>
       </section>
-
-    </main>
+  </>
   )
 }
 

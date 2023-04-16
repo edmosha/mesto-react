@@ -1,0 +1,29 @@
+.hamburger__line {
+  width: 24px;
+  height: 3px;
+  margin-bottom: 6px;
+  background: #fff;
+}
+
+.hamburger__line:last-of-type {
+  margin-bottom: 0;
+}
+
+.hamburger__line {
+    transition: opacity 0.5s ease,
+                transform 0.5s ease;
+}
+
+
+.hamburger__line_opened:nth-child(1) {
+  transform: rotate(45deg) translateY(12px);
+
+}
+
+.hamburger__line_opened:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger__line_opened:nth-child(3) {
+  transform: rotate(-45deg) translateY(-13px);;
+}

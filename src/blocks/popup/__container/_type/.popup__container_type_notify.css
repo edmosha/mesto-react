@@ -1,0 +1,9 @@
+.popup__container_type_notify {
+  padding: 60px 36px;
+  align-items: center;
+}
+
+.popup__container_type_notify .popup__title {
+  margin: 0;
+  text-align: center;
+}

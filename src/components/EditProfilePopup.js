@@ -8,7 +8,7 @@ function EditProfilePopup(props) {
   const { isOpen, isLoading, onClose, onUpdateUser } = props;
   const currentUser = useContext(CurrentUserContext);
 
-  const { values, errors, isValid, onChange, resetValidation } = useValidation();
+  const { values, errors, isValid, onChange,  checkError, resetValidation } = useValidation();
   const submitButtonClass = `popup__save-btn ${!isValid ? 'popup__save-btn_inactive' : ''}`
 
   useEffect(() => {
@@ -38,8 +38,9 @@ function EditProfilePopup(props) {
 
       <input
         className="popup__input"
-        value={values.name || currentUser.name || ''}
+        value={values.name || ''}
         onChange={ onChange }
+        onBlur={ checkError }
         id="name"
         type="text"
         name="name"
@@ -52,8 +53,9 @@ function EditProfilePopup(props) {
 
       <input
         className="popup__input"
-        value={values.description || currentUser.about || ''}
+        value={values.description || ''}
         onChange={ onChange }
+        onBlur={ checkError }
         id="description"
         type="text"
         name="description"

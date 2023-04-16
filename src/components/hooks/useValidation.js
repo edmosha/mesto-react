@@ -7,13 +7,21 @@ function useValidation() {
   const [ isValid, setIsValid ] = useState(false);
 
   const onChange = (evt) => {
-    const { name, value, validationMessage: error } = evt.target;
-
+    const { name, value } = evt.target;
     setValues(values => ({ ...values, [name]: value }));
+  }
+
+  const checkError = (evt) => {
+    const { name, validationMessage: error } = evt.target;
     setErrors(errors => ({ ...errors, [name]: error }));
 
     const form = evt.target.closest('form');
     setIsValid(form.checkValidity());
+  }
+
+  const onKeyDown = (evt) => {
+    evt.key === 'Enter' && checkError(evt);
+    console.log(evt.key)
   }
 
   const resetValidation = (values = {}, errors = {}) => {
@@ -27,7 +35,9 @@ function useValidation() {
     errors,
     isValid,
     onChange,
-    resetValidation,
+    checkError,
+    onKeyDown,
+    resetValidation
   }
 }
 
