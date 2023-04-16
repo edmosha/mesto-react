@@ -1,0 +1,22 @@
+.entry__submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 358px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+}
+
+@media screen and (max-width: 767px) {
+  .entry {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}

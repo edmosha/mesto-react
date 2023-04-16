@@ -1,0 +1,14 @@
+.entry {
+  display: flex;
+  flex-direction: column;
+  max-width: 358px;
+  margin: 0 auto;
+  padding: 0 19px;
+  color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .entry {
+    padding: 0 30px;
+  }
+}

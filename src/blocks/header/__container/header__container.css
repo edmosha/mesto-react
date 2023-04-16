@@ -1,0 +1,14 @@
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .header__container {
+    width: auto;
+    padding: 28px 27px 42px;
+    /*border-top: 1px solid #545454;*/
+    border-bottom: 1px solid #545454;
+  }
+}

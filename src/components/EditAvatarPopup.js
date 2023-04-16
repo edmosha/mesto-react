@@ -5,7 +5,7 @@ import useValidation from "./hooks/useValidation";
 function EditAvatarPopup(props) {
 
   const { isOpen, isLoading, onClose, onUpdateAvatar } = props;
-  const { values, errors, isValid, onChange, resetValidation } = useValidation();
+  const { values, errors, isValid, onChange, checkError, resetValidation } = useValidation();
 
   const submitButtonClass = `popup__save-btn ${!isValid ? 'popup__save-btn_inactive' : ''}`
 
@@ -34,6 +34,7 @@ function EditAvatarPopup(props) {
         className="popup__input"
         value={values.avatar || ''}
         onChange={ onChange }
+        onBlur={ checkError }
         id="avatar"
         type="url"
         name="avatar"

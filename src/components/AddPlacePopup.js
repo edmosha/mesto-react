@@ -5,7 +5,7 @@ import {useEffect} from "react";
 function AddPlacePopup(props) {
 
   const { isOpen, isLoading, onClose, onAddPlace } = props;
-  const { values, errors, isValid, onChange, resetValidation } = useValidation();
+  const { values, errors, isValid, onChange, checkError, resetValidation } = useValidation();
 
   const submitButtonClass = `popup__save-btn ${!isValid ? 'popup__save-btn_inactive' : ''}`
 
@@ -35,6 +35,7 @@ function AddPlacePopup(props) {
         className="popup__input"
         value={values.title || ''}
         onChange={ onChange }
+        onBlur={ checkError }
         id="card-name"
         type="text"
         name="title"
@@ -49,6 +50,7 @@ function AddPlacePopup(props) {
         className="popup__input"
         value={values.image || ''}
         onChange={ onChange }
+        onBlur={ checkError }
         id="link"
         type="url"
         name="image"

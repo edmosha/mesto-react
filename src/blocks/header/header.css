@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  /*justify-content: space-between;*/
   min-height: 74px;
   max-width: 880px;
   margin: 45px auto 40px;
@@ -13,8 +15,9 @@
 
 @media screen and (max-width: 767px) {
   .header {
+    flex-direction: column;
     min-height: 55px;
-    margin: 28px auto 42px;
-    padding: 0 27px;
+    margin: 0 0 42px;
+    border-bottom: none;
   }
 }
