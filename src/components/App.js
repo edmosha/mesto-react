@@ -16,7 +16,7 @@ import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import okIcon from "../images/status-ok.svg"
 import errorIcon from "../images/status-error.svg"
-import {getEmail, login} from "../utils/Auth";
+import {getEmail, login, register} from "../utils/Auth";
 
 function App() {
 
@@ -84,7 +84,6 @@ function App() {
     closeAllPopups();
     setIsErrorPopupOpen(true);
     setError(error);
-    console.error('err', error);
   }
 
   function handleOk() {
@@ -173,19 +172,31 @@ function App() {
     setLoggedIn(value);
   }
 
-  function handleLogin(email, password) {
+  const handleLogin = (email, password) => {
     return login(email, password)
       .then((res) => {
         getEmail(res.token).then((res) => {
           setCurrentUser({...currentUser, email: res.data.email})
           handleLoggedIn(true);
           navigate('/main', {replace: true});
-          return res
+          return res;
         })
+        return res;
       })
       .catch((err) => {
         err === 401 ? handleError('Неверный логин или пароль') : handleError();
-        return err
+      })
+  }
+
+  const handleRegister = (email, password) => {
+    return register(email, password)
+      .then((res) => {
+        handleOk();
+        navigate('/sign-in', {replace: true});
+        return res;
+      })
+      .catch((err) => {
+        err === 400 ? handleError('Пользователь с таким email уже зарегистрирован') : handleError();
       })
   }
 
@@ -222,7 +233,7 @@ function App() {
                   }/>
 
                   <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
-                  <Route path="/sign-up" element={<Register handleOk={handleOk} handleError={handleError} />} />
+                  <Route path="/sign-up" element={<Register handleRegister={handleRegister} />} />
 
                 </Routes>
               </main>
@@ -266,7 +277,6 @@ function App() {
             />
 
             <InfoTooltip
-              // title="Что-то пошло не так! Попробуйте ещё раз."
               title={error}
               image={errorIcon}
               isOpen={isErrorPopupOpen}
@@ -282,8 +292,6 @@ function App() {
             </svg>
           )
         }
-
-
       </div>
     </CurrentUserContext.Provider>
   );

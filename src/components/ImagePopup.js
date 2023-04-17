@@ -1,14 +1,14 @@
 import React from "react";
+import Popup from "./Popup";
 
-function ImagePopup(props) {
+function ImagePopup({ card, onClose }) {
+  const isOpen = Boolean(card.id);
+
   return(
-    <section className={`popup  popup_type_view-picture${props.card.id ? ' popup_opened' : ''}`}>
-      <div className="popup__container popup__container_type_picture">
-        <button className="popup__close-btn" type="button" aria-label="закрыть" onClick={props.onClose}></button>
-        <img className="popup__image" src={props.card.src} alt="" />
-        <h3 className="popup__sign">{props.card.title}</h3>
-      </div>
-    </section>
+    <Popup isOpen={isOpen} onClose={ onClose } type="image">
+      <img className="popup__image" src={card.src} alt={card.title} />
+      <h3 className="popup__sign">{card.title}</h3>
+    </Popup>
   )
 }
 

@@ -1,9 +1,22 @@
 .popup__container_type_notify {
+  box-sizing: border-box;
+  width: 430px;
   padding: 60px 36px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  transform: translate(-50%, -50%);
   align-items: center;
 }
 
 .popup__container_type_notify .popup__title {
   margin: 0;
   text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__container_type_notify {
+    width: 280px;
+    padding: 50px 18px;
+  }
 }

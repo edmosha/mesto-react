@@ -1,4 +1,4 @@
-.entry__input {
+.auth__input {
   height: 27px;
   margin-bottom: 3px;
   border: 0;
@@ -10,11 +10,11 @@
   color: #fff;
 }
 
-.entry__input::placeholder {
+.auth__input::placeholder {
   font-weight: 400;
   color: #ccc;
 }
 
-.entry__input:focus {
+.auth__input:focus {
   outline: none;
 }

@@ -1,4 +1,4 @@
-.entry__input-error {
+.auth__input-error {
   display: inline-block;
   min-height: 30px;
   line-height: 15px;
@@ -7,6 +7,6 @@
   color: #ff5e5e;
 }
 
-.entry__input-error:last-of-type {
+.auth__input-error:last-of-type {
   margin-bottom: 186px;
 }

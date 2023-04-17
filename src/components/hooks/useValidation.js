@@ -21,7 +21,6 @@ function useValidation() {
 
   const onKeyDown = (evt) => {
     evt.key === 'Enter' && checkError(evt);
-    console.log(evt.key)
   }
 
   const resetValidation = (values = {}, errors = {}) => {
